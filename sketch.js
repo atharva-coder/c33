@@ -8,6 +8,8 @@ var box1, pig1,pig3;
 var backgroundImg,platform;
 var bird, slingshot;
 
+var score=0;
+
 var gameState = "onSling";
 var bg = "sprites/bg1.png";
 
@@ -49,6 +51,11 @@ function setup(){
 function draw(){
     if(backgroundImg)
         background(backgroundImg);
+        
+textSize(35);
+fill("white");
+text("Score : "+score , width-300,50);
+
     
     
     Engine.update(engine);
@@ -57,13 +64,13 @@ function draw(){
     box2.display();
     ground.display();
     pig1.display();
-    //pig1.score();
+    pig1.score();
     log1.display();
 
     box3.display();
     box4.display();
     pig3.display();
-    //pig3.score();
+    pig3.score();
     log3.display();
 
     box5.display();
@@ -85,8 +92,12 @@ function mouseReleased(){
     slingshot.fly();
 }
 function keyPressed(){
-    if(keyCode===32)
+    if(keyCode===32){
+        bird.trajectory=[];
+        Matter.Body.setPosition(bird.body,{x:200,y:50});
     slingshot.attach(bird.body);
+
+}
 }
 
 async function getTime(){
